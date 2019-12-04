@@ -30,6 +30,10 @@ Run tests with `mix test`
 
 Run tests and generate a coverage report with `mix test --cover`
 
+## Index
+
+`mix elasticsearch.build resources --cluster DigitalCollex.ElasticsearchCluster`
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
