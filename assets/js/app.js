@@ -15,3 +15,19 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+import Vue from "vue"
+import system from "lux-design-system"
+import "lux-design-system/dist/system/system.css"
+
+Vue.use(system)
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Select all elements with the class name "lux"
+  var elements = document.getElementsByClassName("lux")
+  for (var i = 0; i < elements.length; i++) {
+    // For each element, create a new Vue app.
+    new Vue({
+      el: elements[i],
+    })
+  }
+})
