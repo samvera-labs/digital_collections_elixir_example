@@ -11,9 +11,10 @@ defmodule DigitalCollex.Application do
       # Start the Ecto repository
       DigitalCollex.Repo,
       # Start the endpoint when the application starts
-      DigitalCollexWeb.Endpoint
+      DigitalCollexWeb.Endpoint,
       # Starts a worker by calling: DigitalCollex.Worker.start_link(arg)
       # {DigitalCollex.Worker, arg},
+      DigitalCollex.ElasticsearchCluster
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
