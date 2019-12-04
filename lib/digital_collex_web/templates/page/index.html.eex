@@ -5,6 +5,10 @@
 
 <section class="row">
   <article class="column">
+    <h2>Testing Vue</h2>
+    <div id="app">{{ message }}</div>
+  </article>
+  <article class="column">
     <h2>Resources</h2>
     <ul>
       <li>
