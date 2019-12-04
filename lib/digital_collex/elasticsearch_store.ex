@@ -1,9 +1,10 @@
 defmodule DigitalCollex.ElasticsearchStore do
+  alias DigitalCollex.Indexer
   @behaviour Elasticsearch.Store
 
   @impl true
   def stream(schema) do
-    [%DigitalCollex.Resource{id: "1", title: "a test title"}]
+    Indexer.convert_figgy_documents(Indexer.get_figgy_catalog())
   end
 
   @impl true

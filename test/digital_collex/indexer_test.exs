@@ -1,5 +1,5 @@
 defmodule MockedGetter do
-  def get_url("https://figgy.princeton.edu/catalog.json") do
+  def get_url("https://figgy.princeton.edu/catalog.json?rows=100") do
     File.read!("test/fixtures/catalog.json")
   end
 end
@@ -16,7 +16,10 @@ defmodule DigitalCollex.IndexerTest do
   end
 
   test "converts catalog data to elasticsearch documents" do
-    %{"response" => %{"docs" => documents}} = Indexer.get_figgy_catalog(MockedGetter)
-    output = Indexer.convert_figgy_documents(documents)
+    require IEx
+    output = Indexer.convert_figgy_documents(Indexer.get_figgy_catalog(MockedGetter))
+    first = hd(output)
+    assert length(output) == 20
+    assert %DigitalCollex.Resource{id: "4c4bd924-70c5-4e1c-8bc5-2ad06a995ccc", title: ["燉煌遺書.", "Tonkō isho"]} = first
   end
 end
