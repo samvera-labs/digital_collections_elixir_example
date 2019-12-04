@@ -3,7 +3,7 @@ defmodule DigitalCollex.ElasticsearchStore do
 
   @impl true
   def stream(schema) do
-    # []
+    [%DigitalCollex.Resource{id: "1", title: "a test title"}]
   end
 
   @impl true
