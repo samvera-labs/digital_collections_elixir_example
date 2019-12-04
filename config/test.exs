@@ -2,10 +2,11 @@ use Mix.Config
 
 # Configure your database
 config :digital_collex, DigitalCollex.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "docker",
+  password: "d0ck3r",
   database: "digital_collex_test",
   hostname: "localhost",
+  port: 5434,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
