@@ -52,7 +52,8 @@ defmodule DigitalCollex.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.1.5"},
-      {:excoveralls, "~> 0.12.1"}
+      {:excoveralls, "~> 0.12.1"},
+      {:httpoison, "~> 1.6"}
     ]
   end
 
