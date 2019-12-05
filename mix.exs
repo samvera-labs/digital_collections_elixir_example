@@ -41,6 +41,7 @@ defmodule DigitalCollex.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:elasticsearch, "~> 1.0.0"},
       {:phoenix, "~> 1.4.11"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
@@ -52,7 +53,8 @@ defmodule DigitalCollex.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.1.5"},
-      {:excoveralls, "~> 0.12.1"}
+      {:excoveralls, "~> 0.12.1"},
+      {:httpoison, "~> 1.6"}
     ]
   end
 
