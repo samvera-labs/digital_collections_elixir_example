@@ -22,4 +22,8 @@ defmodule DigitalCollex.IndexerTest do
     assert length(output) == 20
     assert %DigitalCollex.Resource{id: "4c4bd924-70c5-4e1c-8bc5-2ad06a995ccc", title: ["燉煌遺書.", "Tonkō isho"]} = first
   end
+
+  test "is able to index from the test store" do
+    :ok = Elasticsearch.Index.hot_swap(DigitalCollex.Elasticsearch.Test.Cluster, "resources")
+  end
 end
