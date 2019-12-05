@@ -6,9 +6,17 @@ defmodule DigitalCollex.Indexer do
     |> parse_json
   end
 
+  def convert_figgy_documents(documents) when is_list(documents) do
+    documents
+    |> Enum.map(&convert_figgy_document/1)
+  end
   def convert_figgy_documents(%{"response" => %{"docs" => documents}}) do
     documents
     |> Enum.map(&convert_figgy_document/1)
+  end
+  def convert_figgy_documents(documents) do
+    documents
+    |> Stream.map(&convert_figgy_document/1)
   end
 
   def convert_figgy_document(%{"id" => id, "title_ssim" => title}) do
