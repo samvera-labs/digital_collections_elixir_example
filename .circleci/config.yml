@@ -1,0 +1,70 @@
+version: 2.1
+
+jobs:
+  test:
+    working_directory: ~/digital_collections_elixir_example
+    docker:
+      - image: circleci/elixir:1.9-node
+        environment:
+          DATABASE_URL: ecto://root@localhost/circle_test
+          MIX_ENV: test
+          HTTP_PORT: 4000
+          DB_PORT: 5432
+          ELASTIC_SEARCH_URL: http://localhost:9200
+      - image: circleci/postgres:10-alpine
+        environment:
+          POSTGRES_USER: docker
+          POSTGRES_PASSWORD: d0ck3r
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+        environment:
+          discovery.type: single-node
+          http.cors.enabled: "true"
+          http.cors.allow-origin: "*"
+          http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+          http.cors.allow-headers: "X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-hex-cache-{{ checksum "mix.lock" }}
+            - v1-hex-cache-
+            - dependency-cache-
+      - restore_cache:
+          keys:
+            - v1-npm-cache-{{ checksum "assets/yarn.lock" }}
+            - v1-npm-cache-
+      - run:
+          name: Install hex & rebar
+          command: mix do local.hex --force, local.rebar --force
+      - run:
+          name: Install Elixir Dependencies
+          command: mix do deps.get
+      - run:
+          name: Install JS Dependencies
+          command: yarn install
+          working_directory: ~/digital_collections_elixir_example/assets
+      - save_cache:
+          key: v1-hex-cache-{{ checksum "mix.lock" }}
+          paths:
+            - ~/digital_collections_elixir_example/deps
+            - ~/digital_collections_elixir_example/_build
+      - save_cache:
+          key: v1-npm-cache-{{ checksum "assets/yarn.lock" }}
+          paths:
+            - ~/digital_collections_elixir_example/assets/node_modules
+      - run:
+          name: Elixir Tests
+          command: mix test && (mix coveralls.circle || true)
+      - run:
+          name: Test Webpack Build
+          command: yarn deploy
+          working_directory: ~/digital_collections_elixir_example/assets
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: tests
+
+workflows:
+  ci:
+    jobs:
+      - test
+

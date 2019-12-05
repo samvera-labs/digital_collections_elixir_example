@@ -16,9 +16,6 @@ import "phoenix_html";
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
 
-// Import non-Lux Vue components
-import "./components/_components";
-
 // Import Vue & Lux
 import Vue from "vue";
 import system from "lux-design-system";
