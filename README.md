@@ -12,11 +12,11 @@ We'll use postgres and elasticsearch. You can also run pgadmin and kibana for in
 
 To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`. Or use `iex -S mix phx.server`
-    for a repl and server in one!
+- Install dependencies with `mix deps.get`
+- Create and migrate your database with `mix ecto.setup`
+- Install Node.js dependencies with `cd assets && yarn install`
+- Start Phoenix endpoint with `mix phx.server`. Or use `iex -S mix phx.server`
+  for a repl and server in one!
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
@@ -36,8 +36,8 @@ Run tests and generate a coverage report with `mix test --cover`
 
 ## Learn more
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+- Official website: http://www.phoenixframework.org/
+- Guides: https://hexdocs.pm/phoenix/overview.html
+- Docs: https://hexdocs.pm/phoenix
+- Mailing list: http://groups.google.com/group/phoenix-talk
+- Source: https://github.com/phoenixframework/phoenix
