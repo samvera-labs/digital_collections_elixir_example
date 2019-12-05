@@ -6,6 +6,13 @@
 <p><a href="#">I'm a link styled by Sass</a></p>
 
 <h2>Vue / Lux component testing</h2>
+<div>
+  <search-box>
+    <input-text id="foo" name="value" label="Search" :hide-label="true" placeholder="Find all the things" size="large"></input-text>
+    <input-button type="button" variation="icon" size="medium" icon="search"></input-button>
+  </search-box>
+</div>
+
 <section class="row">
   <article class="column">
     <h3>Vanilla Vue component event handler</h3>
