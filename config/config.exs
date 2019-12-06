@@ -27,7 +27,7 @@ config :phoenix, :json_library, Jason
 
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   # The URL where Elasticsearch is hosted on your system
-  url: System.get_env("ELASTIC_SEARCH_URL", "http://localhost:9201"),
+  url: System.get_env("ELASTIC_SEARCH_URL", "http://localhost:9200"),
 
   # If your Elasticsearch cluster uses HTTP basic authentication,
   # specify the username and password here:
