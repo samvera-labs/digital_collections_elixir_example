@@ -2,33 +2,59 @@
   <heading size="h2">Digital Collections at Northwinceton</heading>
 </section>
 
+<h2>Vue / Lux component testing</h2>
 <section class="row">
   <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
+    <h3>Vanilla Vue component event handler</h3>
+    <div id="message"></div>
   </article>
   <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
+    <h3>Vanilla Vue component form input binder</h3>
+    <div id="vanilla-vue-input"></div>
   </article>
+</section>
+
+<section class="lux">
+  <h3>Lux components</h3>
+  <div class="row">
+    <article class="column">
+      <h4>Date picker</h4>
+      <date-picker id="today" name="today" label="Today's Date" mode="single" :defaultDate="new Date()" />
+    </article>
+    <article class="column">
+      <h4>Logo</h4>
+      <logo-university></logo-university>
+    </article>
+  </div>
+  <div class="row">
+    <article class="column">
+      <h4>Alert</h4>
+      <alert status="info" dismissible>Here's some dismissible info for you.</alert>
+    </article>
+  </div>
+  <div class="row">
+    <article class="column">
+      <h4>Card</h4>
+      <card id="a">
+        <media-image src="https://picsum.photos/600/300/?random" height="medium" cover></media-image>
+        <heading level="h2">Card Title</heading>
+        <text-style variation="default">Design isn’t just about the look and feel. Design is how it
+          works.</text-style>
+      </card>
+    </article>
+    <article class="column">
+      <h4>Input text</h4>
+      <input-text id="foo" name="value" label="Input" :hide-label="true" placeholder="Write your text"
+        helper="This is helper text to help the user fill out this field"></input-text>
+    </article>
+  </div>
+</section>
+
+<section class="lux-in-vue">
+  <h3>Lux components <i>in</i> Vue components</h3>
+  <div class="row">
+    <article class="column lux">
+      <div id="lux-input"></div>
+    </article>
+  </div>
 </section>
