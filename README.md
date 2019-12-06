@@ -14,8 +14,8 @@ We're using `Pow` for Ecto-backed user authentication, and `PowAssent` for Githu
 
 ```
 # .env
-GITHUB_CLIENT_ID=[your-client-id]
-GITHUB_CLIENT_SECRET=[your-client-secret]
+export GITHUB_CLIENT_ID=[your-client-id]
+export GITHUB_CLIENT_SECRET=[your-client-secret]
 ```
 
 Please see the [PowAssent documentation](https://github.com/pow-auth/pow_assent#setting-up-a-provider) for more information on setting up the provider.

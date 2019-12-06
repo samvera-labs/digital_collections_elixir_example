@@ -25,6 +25,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Use POW for user accounts and authentication
+config :digital_collex, :pow,
+  user: DigitalCollex.Users.User,
+  repo: DigitalCollex.Repo,
+  routes_backend: DigitalCollexWeb.PowRoutes
+
 config :digital_collex, :pow_assent,
   providers: [
     github: [
