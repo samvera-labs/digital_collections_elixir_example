@@ -1,6 +1,9 @@
-<section class="phx-hero lux">
-  <heading size="h2">Digital Collections at Northwinceton</heading>
+<section class="phx-hero lux sass-test-wrapper">
+  <heading size="h2">Digital Collections <span class="im-blue">at</span> Northwinceton</heading>
 </section>
+
+<h2>General styles</h2>
+<p><a href="#">I'm a link styled by Sass</a></p>
 
 <h2>Vue / Lux component testing</h2>
 <section class="row">

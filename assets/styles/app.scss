@@ -1,0 +1,22 @@
+// https://sass-guidelin.es/#architecture
+// Using the 7-1 pattern
+
+// Abstracts
+@import "./scss/abstracts/variables";
+
+// Base
+@import "./scss/base/base";
+
+// Vendors
+@import "./scss/vendors/phoenix.css";
+
+// Layout
+@import "./scss/layout/footer";
+
+// Components
+@import "./scss/components/buttons";
+
+// Pages
+@import "./scss/pages/home";
+
+// Themes
