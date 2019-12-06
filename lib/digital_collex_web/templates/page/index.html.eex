@@ -21,15 +21,7 @@
 <section class="lux">
   <h3>Lux components</h3>
 
-  <div>
-    <h4>Search</h4>
-    <%= form_tag(Routes.result_path(@conn, :index), method: "get")  do %>
-      <search-box>
-        <input-text id="search-box" name="q" label="Search" :hide-label="true" placeholder="Find all the things" size="large"></input-text>
-        <input-button type="button" variation="icon" size="medium" icon="search"></input-button>
-      </search-box>
-    <% end %>
-  </div>
+  <%= render(DigitalCollexWeb.SharedView, "search_box.html", conn: @conn) %>
 
   <div class="row">
     <article class="column">

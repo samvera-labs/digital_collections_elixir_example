@@ -1,2 +1,5 @@
+<%= render(DigitalCollexWeb.SharedView, "search_box.html", conn: @conn) %>
+
 Showing <%= length(@results.hits) %> of <%= @results.total %> result(s)
-<%= inspect(@results) %>
+<%= render_many(@results.hits, DigitalCollexWeb.Search.ResultView, "list_result.html", as: :result) %>
+
