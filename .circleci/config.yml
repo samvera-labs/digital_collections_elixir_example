@@ -4,7 +4,7 @@ jobs:
   test:
     working_directory: ~/digital_collections_elixir_example
     docker:
-      - image: circleci/elixir:1.9-node
+      - image: circleci/elixir:1.9-node-browsers
         environment:
           DATABASE_URL: ecto://root@localhost/circle_test
           MIX_ENV: test

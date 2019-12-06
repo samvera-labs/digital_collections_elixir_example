@@ -54,8 +54,15 @@ defmodule DigitalCollex.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.1.5"},
       {:excoveralls, "~> 0.12.1"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:wallaby, "~> 0.23.0", [runtime: false, only: :test]}
     ]
+  end
+
+  defp compile_assets(_) do
+    Mix.shell().cmd("cd assets && ./node_modules/webpack/bin/webpack.js --mode development",
+      quiet: true
+    )
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
@@ -68,7 +75,13 @@ defmodule DigitalCollex.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      "assets.compile": &compile_assets/1,
+      test: [
+        "assets.compile",
+        "ecto.create --quiet",
+        "ecto.migrate",
+        "test"
+      ]
     ]
   end
 end

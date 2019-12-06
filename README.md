@@ -30,9 +30,31 @@ Run tests with `mix test`
 
 Run tests and generate a coverage report with `mix test --cover`
 
+## Running functional tests
+
+[Wallaby](https://github.com/elixir-wallaby/wallaby) (with 
+[chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)) are 
+required in order to run the functional test suites. This requires that 
+`chromedriver` release be updated to the latest release. Should one encounter 
+the following errors:
+
+```bash
+The following arguments were given to Wallaby.Experimental.Selenium.WebdriverClient.cast_as_element/2:
+
+    # 1
+    %Wallaby.Session{driver: Wallaby.Experimental.Chrome, id: "5c5f795fa21bfb430a3ba7a94079d959", screenshots: [], server: Wallaby.Experimental.Chrome.Chromedriver, session_url: "http://localhost:59609/session/5c5f795fa21bfb430a3ba7a94079d959", url: "http://localhost:59609/session/5c5f795fa21bfb430a3ba7a94079d959"}
+
+    # 2
+    {"message", "invalid session id\n  (Driver info: chromedriver=2.45.615355 (d5698f682d8b2742017df6c81e0bd8e6a3063189),platform=Mac OS X 10.14.5 x86_64)"}
+```
+
+Please be aware that this can be simple resolved by upgrading `chromedriver` 
+(e. g. `brew cask reinstall chromedriver` for macOS).
+
 ## Index
 
 `mix elasticsearch.build resources --cluster DigitalCollex.ElasticsearchCluster`
+
 
 ## Learn more
 
