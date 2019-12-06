@@ -26,8 +26,4 @@ defmodule DigitalCollex.IndexerTest do
              title: ["燉煌遺書.", "Tonkō isho"]
            } = first
   end
-
-  test "is able to index from the test store" do
-    :ok = Elasticsearch.Index.hot_swap(DigitalCollex.Elasticsearch.Test.Cluster, "resources")
-  end
 end
