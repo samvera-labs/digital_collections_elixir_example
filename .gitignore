@@ -38,3 +38,5 @@ npm-debug.log
 # Ignore the Jest JavaScript coverage reports
 assets/coverage
 assets/js/test/unit/coverage
+
+.env

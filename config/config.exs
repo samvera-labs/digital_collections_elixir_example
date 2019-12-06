@@ -25,9 +25,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :digital_collex, :pow,
-  user: DigitalCollex.Users.User,
-  repo: DigitalCollex.Repo
+config :digital_collex, :pow_assent,
+  providers: [
+    github: [
+      client_id: System.get_env("GITHUB_CLIENT_ID"),
+      client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
+      strategy: Assent.Strategy.Github
+    ]
+  ]
 
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   # The URL where Elasticsearch is hosted on your system

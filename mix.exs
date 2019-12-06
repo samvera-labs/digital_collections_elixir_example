@@ -41,6 +41,7 @@ defmodule DigitalCollex.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:certifi, "~> 2.4"},
       {:credo, "~> 1.1.5"},
       {:ecto_sql, "~> 3.1"},
       {:elasticsearch, "~> 1.0.0"},
@@ -55,7 +56,9 @@ defmodule DigitalCollex.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
-      {:pow, "~> 1.0.15"}
+      {:pow, "~> 1.0.15"},
+      {:pow_assent, "~> 0.4.4"},
+      {:ssl_verify_fun, "~> 1.1"}
     ]
   end
 
