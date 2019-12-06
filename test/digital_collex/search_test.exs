@@ -9,8 +9,4 @@ defmodule DigitalCollex.SearchTest do
              "title" => ["\"Will the Dogs Make Trouble?\""]
            }
   end
-
-  test "errors when elasticsearch is down" do
-    assert {:error, _} = DigitalCollex.Search.query("cats")
-  end
 end
