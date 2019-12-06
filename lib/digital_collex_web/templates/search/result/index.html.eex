@@ -1,1 +1,2 @@
+Showing <%= length(@results.hits) %> of <%= @results.total %> result(s)
 <%= inspect(@results) %>

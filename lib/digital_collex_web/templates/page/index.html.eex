@@ -23,10 +23,12 @@
 
   <div>
     <h4>Search</h4>
-    <search-box>
-      <input-text id="search-box" name="value" label="Search" :hide-label="true" placeholder="Find all the things" size="large"></input-text>
-      <input-button type="button" variation="icon" size="medium" icon="search"></input-button>
-    </search-box>
+    <%= form_tag(Routes.result_path(@conn, :index), method: "get")  do %>
+      <search-box>
+        <input-text id="search-box" name="q" label="Search" :hide-label="true" placeholder="Find all the things" size="large"></input-text>
+        <input-button type="button" variation="icon" size="medium" icon="search"></input-button>
+      </search-box>
+    <% end %>
   </div>
 
   <div class="row">
