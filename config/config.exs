@@ -25,6 +25,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :digital_collex, :pow,
+  user: DigitalCollex.Users.User,
+  repo: DigitalCollex.Repo
+
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   # The URL where Elasticsearch is hosted on your system
   url: System.get_env("ELASTIC_SEARCH_URL", "http://localhost:9201"),
