@@ -27,5 +27,9 @@ defmodule DigitalCollex.IndexerTest do
       state: ["complete"],
       repository_document: %{"depositor" => "sw21"}
            } = first
+
+    assert %{state: ["complete"]} = Elasticsearch.Document.encode(first)
+
+    assert %{"depositor" => "sw21"} = Elasticsearch.Document.encode(first)
   end
 end

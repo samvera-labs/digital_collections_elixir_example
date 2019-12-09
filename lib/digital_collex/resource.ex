@@ -6,10 +6,9 @@ defmodule DigitalCollex.Resource do
     def routing(_), do: false
 
     def encode(resource) do
-      %{
-        title: resource.title,
-        state: resource.state
-      }
+      resource.repository_document
+      |> Map.delete("_version")
+      |> Map.delete("")
     end
   end
 end
