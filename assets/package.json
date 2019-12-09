@@ -4,7 +4,7 @@
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "test": "jest --config ./js/test/jest.conf.js --coverage"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "lux-design-system": "^2.11.0",
@@ -33,5 +33,23 @@
     "vue-template-compiler": "^2.6.10",
     "webpack": "4.4.0",
     "webpack-cli": "^3.3.2"
+  },
+  "jest": {
+    "modulePaths": ["<rootDir>"],
+    "moduleFileExtensions": ["js", "json", "vue"],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/js/$1"
+    },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "coverageDirectory": "<rootDir>/js/test/unit/coverage",
+    "collectCoverageFrom": [
+      "<rootDir>/js/components/**/*.{js,vue}",
+      "!<rootDir>/js/components/_components.js",
+      "!<rootDir>/js/components/_lux-elements-used.js",
+      "!<rootDir>/node_modules/**"
+    ]
   }
 }
