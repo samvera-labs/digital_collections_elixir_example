@@ -1,5 +1,5 @@
 defmodule DigitalCollex.Resource do
-  defstruct [:id, :title]
+  defstruct [:id, :title, :state]
 
   defimpl Elasticsearch.Document do
     def id(resource), do: resource.id
@@ -7,7 +7,8 @@ defmodule DigitalCollex.Resource do
 
     def encode(resource) do
       %{
-        title: resource.title
+        title: resource.title,
+        state: resource.state
       }
     end
   end
