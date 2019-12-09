@@ -4,6 +4,7 @@
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch",
+    "lint": "prettier --check js/**/*.{js,json,vue}",
     "test": "jest --coverage"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "sass-loader": "^7.3.1",
+    "prettier": "^1.19.1",
     "terser-webpack-plugin": "^1.1.0",
     "vue-jest": "^3.0.5",
     "vue-loader": "^15.7.2",
@@ -35,8 +37,14 @@
     "webpack-cli": "^3.3.2"
   },
   "jest": {
-    "modulePaths": ["<rootDir>"],
-    "moduleFileExtensions": ["js", "json", "vue"],
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/js/$1"
     },

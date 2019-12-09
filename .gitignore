@@ -36,4 +36,4 @@ npm-debug.log
 .elixir_ls/
 
 # Ignore the Jest JavaScript coverage reports
-assets/js/test/unit/coverage
+assets/coverage
