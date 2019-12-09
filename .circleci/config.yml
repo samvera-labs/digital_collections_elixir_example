@@ -59,6 +59,14 @@ jobs:
           name: Test Webpack Build
           command: yarn deploy
           working_directory: ~/digital_collections_elixir_example/assets
+      - run:
+          name: Lint the JavaScript assets
+          command: yarn lint
+          working_directory: ~/digital_collections_elixir_example/assets
+      - run:
+          name: JavaScript tests
+          command: yarn test
+          working_directory: ~/digital_collections_elixir_example/assets
       - store_artifacts:
           path: /tmp/test-results
           destination: tests
