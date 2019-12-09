@@ -21,7 +21,7 @@ config :logger, level: :warn
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   api: Elasticsearch.API.HTTP,
   json_library: Jason,
-  url: "http://localhost:9202",
+  url: System.get_env("ELASTIC_SEARCH_URL", "http://localhost:9202"),
   indexes: %{
     resources: %{
       settings: "priv/elasticsearch/resources.json",
