@@ -23,7 +23,13 @@ defmodule DigitalCollex.IndexerTest do
 
     assert %DigitalCollex.Resource{
              id: "4c4bd924-70c5-4e1c-8bc5-2ad06a995ccc",
-             title: ["燉煌遺書.", "Tonkō isho"]
+             title: ["燉煌遺書.", "Tonkō isho"],
+      state: ["complete"],
+      repository_document: %{"depositor" => "sw21"}
            } = first
+
+    assert %{"state" => ["complete"]} = Elasticsearch.Document.encode(first)
+
+    assert %{"depositor" => "sw21"} = Elasticsearch.Document.encode(first)
   end
 end

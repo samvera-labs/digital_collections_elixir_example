@@ -11,8 +11,9 @@ defmodule DigitalCollex.Indexer do
     |> Enum.map(&convert_figgy_document/1)
   end
 
-  def convert_figgy_document(%{"id" => id, "title_ssim" => title}) do
-    %DigitalCollex.Resource{id: id, title: title}
+  def convert_figgy_document(repository_document = %{"id" => id, "title_ssim" => title, "state_ssim" => state }) do
+    repository_document = repository_document |> Enum.reduce(%{}, &remove_suffix/2)
+    %DigitalCollex.Resource{id: id, title: title, state: state, repository_document: repository_document}
   end
 
   def parse_json(json_string) when is_binary(json_string) do
@@ -28,4 +29,15 @@ defmodule DigitalCollex.Indexer do
     |> HTTPoison.get!([], ssl: [versions: [:"tlsv1.2"]])
     |> Map.get(:body)
   end
+
+  defp remove_suffix({key, value}, accumulator) do
+    accumulator |> Map.put(strip_suffix(key), value)
+  end
+
+  defp strip_suffix(str) do
+    String.split(str, "_")
+    |> Enum.drop(-1)
+    |> Enum.join("_")
+  end
+
 end
