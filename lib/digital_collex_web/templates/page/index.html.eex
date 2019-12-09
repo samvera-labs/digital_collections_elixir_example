@@ -6,6 +6,7 @@
 <p><a href="#">I'm a link styled by Sass</a></p>
 
 <h2>Vue / Lux component testing</h2>
+
 <section class="row">
   <article class="column">
     <h3>Vanilla Vue component event handler</h3>
@@ -19,6 +20,9 @@
 
 <section class="lux">
   <h3>Lux components</h3>
+
+  <%= render(DigitalCollexWeb.SharedView, "search_box.html", conn: @conn) %>
+
   <div class="row">
     <article class="column">
       <h4>Date picker</h4>
