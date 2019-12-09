@@ -3,6 +3,6 @@ defmodule DigitalCollexWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Digital Collections at Northwinceton"
+    assert html_response(conn, 200) =~ "Digital Collections"
   end
 end
