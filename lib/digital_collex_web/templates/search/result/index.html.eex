@@ -1,10 +1,13 @@
 <%= render(DigitalCollexWeb.SharedView, "search_box.html", conn: @conn) %>
-<div>
-	<%= for {facet_label, facet_values} <- @results.facets do %>
-	  <%= facet_label %>
-	<% end %>
+<div class="lux">
+  <grid-container>
+    <%= for {facet_label, facet_buckets} <- @results.facets do %>
+      <input-select
+        value=""
+        :options="<%= lux_facet_options(facet_label, facet_buckets) %>"
+      >
+    <% end %>
+  </grid-container>
 </div>
 Showing <%= length(@results.hits) %> of <%= @results.total %> result(s)
 <%= render_many(@results.hits, DigitalCollexWeb.Search.ResultView, "list_result.html", as: :result) %>
-
-
