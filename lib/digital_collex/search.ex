@@ -8,13 +8,8 @@ defmodule DigitalCollex.Search do
   end
 
   def query(input, facets \\ %{}) do
-  # "query": {
-  #   "bool": {
-  #     "must": {"query_string": {"query": "*"}},
-  #     "filter": [{ "term": { "member_of_collection_titles.keyword": "Ethiopic Manuscripts"}}]
-  #   }
-  # },
     facets = build_elasticsearch_facets(facets)
+
     response =
       Elasticsearch.post(
         DigitalCollex.ElasticsearchCluster,
@@ -45,6 +40,8 @@ defmodule DigitalCollex.Search do
     end
   end
 
+  # Example facets:
+  # %{"collections" => ["Bibliotheca Cicognara"]}
   def build_elasticsearch_facets(facets) do
     facets
     |> Enum.map(&build_facet/1)
@@ -53,7 +50,7 @@ defmodule DigitalCollex.Search do
   def build_facet({term, value}) do
     value
     |> Enum.map(fn(v) ->
-      %{ "term" => %{ term => v } }
+      %{ "term" => %{ "#{term}.keyword" => v } }
     end)
   end
 
