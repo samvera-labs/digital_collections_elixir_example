@@ -44,11 +44,17 @@ defmodule DigitalCollex.Search do
       {:error, _} -> response
     end
   end
+
   def build_elasticsearch_facets(facets) do
     facets
     |> Enum.map(&build_facet/1)
   end
+
   def build_facet({term, value}) do
+    value
+    |> Enum.map(fn(v) ->
+      %{ "term" => %{ term => v } }
+    end)
   end
 
   defp map_response(%{"hits" => %{"hits" => results, "total" => total}, "aggregations" => aggs}) do
