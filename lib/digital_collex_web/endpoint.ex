@@ -42,5 +42,7 @@ defmodule DigitalCollexWeb.Endpoint do
     key: "_digital_collex_key",
     signing_salt: "Oon3kdTM"
 
+  plug Pow.Plug.Session, otp_app: :digital_collex
+
   plug DigitalCollexWeb.Router
 end

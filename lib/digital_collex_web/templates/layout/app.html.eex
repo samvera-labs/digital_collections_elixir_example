@@ -13,9 +13,12 @@
   <header class="lux">
     <!-- <section class="container">
         <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <span>Logged in as <%= Pow.Plug.current_user(@conn).email %></span><br/>
+            <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+          <% else %>
+            <span><%= PowAssent.Phoenix.ViewHelpers.authorization_link(@conn, :github) %></span>
+          <% end %>
         </nav>
         <a href="http://phoenixframework.org/" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
@@ -25,11 +28,17 @@
       <menu-bar type="links" :menu-items="[
         {name: 'Search', component: 'Help', href: '/search/'},
         {name: 'Info', component: 'Feedback', href: '/info/'},
-        {name: 'Your Account', component: 'Account', href: '/account/'}
+      <%= if !Pow.Plug.current_user(@conn) do %>
+        {name: 'Sign in with Github', component: 'Account', href: '/auth/github/new'}
+      <% end %>
       ]"></menu-bar>
     </library-header>
   </header>
   <main role="main" class="container">
+    <%= if Pow.Plug.current_user(@conn) do %>
+      <span>Logged in as <%= Pow.Plug.current_user(@conn).email %></span><br/>
+      <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+    <% end %>
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <%= render @view_module, @view_template, assigns %>

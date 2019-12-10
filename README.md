@@ -10,11 +10,22 @@ You can run a local development and test environment with
 
 We'll use postgres and elasticsearch. You can also run pgadmin and kibana for inspecting those services, respectively.
 
+We're using `Pow` for Ecto-backed user authentication, and `PowAssent` for Github authentication. The application requires two environment variables which you should put in a `.env` file in the project root and must contain:
+
+```
+# .env
+export GITHUB_CLIENT_ID=[your-client-id]
+export GITHUB_CLIENT_SECRET=[your-client-secret]
+```
+
+Please see the [PowAssent documentation](https://github.com/pow-auth/pow_assent#setting-up-a-provider) for more information on setting up the provider.
+
 To start your Phoenix server:
 
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Install Node.js dependencies with `cd assets && yarn install`
+- Run `source .env` to configure Github authentication.
 - Start Phoenix endpoint with `mix phx.server`. Or use `iex -S mix phx.server`
   for a repl and server in one!
 
