@@ -13,10 +13,12 @@ config :digital_collex, DigitalCollex.Repo,
 # you can enable the server option below.
 config :digital_collex, DigitalCollexWeb.Endpoint,
   http: [port: System.get_env("HTTP_PORT", "4002")],
-  server: false
+  server: true
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+config :wallaby, driver: Wallaby.Experimental.Chrome
+config :wallaby, screenshot_on_failure: true
 
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   api: Elasticsearch.API.HTTP,

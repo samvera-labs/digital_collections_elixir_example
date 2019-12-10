@@ -1,6 +1,10 @@
 defmodule DigitalCollexWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :digital_collex
 
+  if Application.get_env(:digital_collex, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   socket "/socket", DigitalCollexWeb.UserSocket,
     websocket: true,
     longpoll: false
