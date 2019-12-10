@@ -7,6 +7,7 @@ defmodule DigitalCollex.SearchTest do
     assert [%DigitalCollex.Search.Hit{id: _, title: ["39_ParrotsandToucans"]}] = result.hits
     assert %{"state" => [{"pending", 1}]} = result.facets
   end
+
   test "it can facet" do
     {:ok, result} = DigitalCollex.Search.query("39_ParrotsandToucans", %{"state" => ["complete"]})
     assert result.total == 0

@@ -6,4 +6,7 @@ defmodule DigitalCollexWeb.Search.ResultView do
     |> List.insert_at(0, %{label: "Filter by #{label}", value: ""})
     |> Jason.encode!()
   end
+
+  def lux_facet_tag_options(filters) do
+  end
 end

@@ -14,6 +14,10 @@
         apply filters
       <% end %>
     <% end %>
+    <tag type="filter" label="filtered by" :tag-items="[
+    {name: 'Cats', href: '/tags/cats'},
+    {name: 'Dogs', href: '/tags/dogs'}
+    ]"/>
   </grid-container>
 </div>
 Showing <%= length(@results.hits) %> of <%= @results.total %> result(s)

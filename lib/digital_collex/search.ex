@@ -44,7 +44,7 @@ defmodule DigitalCollex.Search do
   # %{"collections" => ["Bibliotheca Cicognara"]}
   def build_elasticsearch_facets(facets) do
     facets
-    |> Enum.filter(fn({term, value}) -> value != [""] end)
+    |> Enum.filter(fn {term, value} -> value != [""] end)
     |> Enum.map(&build_facet/1)
   end
 
@@ -59,7 +59,7 @@ defmodule DigitalCollex.Search do
   end
 
   defp map_facet_term(term, value) do
-      %{ "term" => %{ "#{term}.keyword" => value } }
+    %{"term" => %{"#{term}.keyword" => value}}
   end
 
   defp map_response(%{"hits" => %{"hits" => results, "total" => total}, "aggregations" => aggs}) do
