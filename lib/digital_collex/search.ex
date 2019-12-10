@@ -7,18 +7,33 @@ defmodule DigitalCollex.Search do
     defstruct [:total, :hits, :facets]
   end
 
-  def query(input) do
+  def query(input, facets \\ %{}) do
+  # "query": {
+  #   "bool": {
+  #     "must": {"query_string": {"query": "*"}},
+  #     "filter": [{ "term": { "member_of_collection_titles.keyword": "Ethiopic Manuscripts"}}]
+  #   }
+  # },
+    facets = build_elasticsearch_facets(facets)
     response =
       Elasticsearch.post(
         DigitalCollex.ElasticsearchCluster,
         "/resources/_doc/_search",
         %{
           "query" => %{
-            "query_string" => %{"query" => input}
+            "bool" => %{
+              "must" => %{
+                "query_string" => %{"query" => input}
+              },
+              "filter" => facets
+            }
           },
           "aggs" => %{
             "state" => %{
               "terms" => %{"field" => "state.keyword"}
+            },
+            "collections" => %{
+              "terms" => %{"field" => "member_of_collection_titles.keyword"}
             }
           }
         }
@@ -28,6 +43,12 @@ defmodule DigitalCollex.Search do
       {:ok, result} -> {:ok, result |> map_response}
       {:error, _} -> response
     end
+  end
+  def build_elasticsearch_facets(facets) do
+    facets
+    |> Enum.map(&build_facet/1)
+  end
+  def build_facet({term, value}) do
   end
 
   defp map_response(%{"hits" => %{"hits" => results, "total" => total}, "aggregations" => aggs}) do
