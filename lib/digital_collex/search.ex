@@ -44,19 +44,27 @@ defmodule DigitalCollex.Search do
   # %{"collections" => ["Bibliotheca Cicognara"]}
   def build_elasticsearch_facets(facets) do
     facets
+    |> Enum.filter(fn({term, value}) -> value != [""] end)
     |> Enum.map(&build_facet/1)
   end
 
+  # value is a list like ["Bibliotheca Cicognara"]
   def build_facet({term, value}) do
     value
-    |> Enum.map(fn(v) ->
-      %{ "term" => %{ "#{term}.keyword" => v } }
-    end)
+    |> Enum.map(&map_facet_term(term, &1))
+  end
+
+  defp map_facet_term("collections", value) do
+    map_facet_term("member_of_collection_titles", value)
+  end
+
+  defp map_facet_term(term, value) do
+      %{ "term" => %{ "#{term}.keyword" => value } }
   end
 
   defp map_response(%{"hits" => %{"hits" => results, "total" => total}, "aggregations" => aggs}) do
     hits = Enum.map(results, &build_hits/1)
-    facets = Enum.reduce(aggs, %{}, &build_facets/2)
+    facets = Enum.reduce(aggs, %{}, &parse_facets/2)
     %Results{total: total, hits: hits, facets: facets}
   end
 
@@ -64,12 +72,12 @@ defmodule DigitalCollex.Search do
     %Hit{id: id, title: Enum.map(titles, &remove_escaped_quotes/1)}
   end
 
-  defp build_facets({key, %{"buckets" => buckets}}, acc) do
+  defp parse_facets({key, %{"buckets" => buckets}}, acc) do
     acc
-    |> Map.put(key, Enum.map(buckets, &build_facet_hit/1))
+    |> Map.put(key, Enum.map(buckets, &parse_facet_hit/1))
   end
 
-  defp build_facet_hit(%{"key" => key, "doc_count" => count}) do
+  defp parse_facet_hit(%{"key" => key, "doc_count" => count}) do
     {key, count}
   end
 
