@@ -11,9 +11,9 @@ defmodule DigitalCollex.Indexer do
     |> Enum.map(&convert_figgy_document/1)
   end
 
-  def convert_figgy_document(repository_document = %{"id" => id, "title_ssim" => title, "state_ssim" => state }) do
+  def convert_figgy_document(repository_document = %{"id" => id}) do
     repository_document = repository_document |> Enum.reduce(%{}, &remove_suffix/2)
-    %DigitalCollex.Resource{id: id, title: title, state: state, repository_document: repository_document}
+    %DigitalCollex.Resource{id: id, repository_document: repository_document}
   end
 
   def parse_json(json_string) when is_binary(json_string) do
@@ -39,5 +39,4 @@ defmodule DigitalCollex.Indexer do
     |> Enum.drop(-1)
     |> Enum.join("_")
   end
-
 end

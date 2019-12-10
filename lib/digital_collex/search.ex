@@ -44,6 +44,7 @@ defmodule DigitalCollex.Search do
     acc
     |> Map.put(key, Enum.map(buckets, &build_facet_hit/1))
   end
+
   defp build_facet_hit(%{"key" => key, "doc_count" => count}) do
     {key, count}
   end

@@ -4,6 +4,7 @@ defmodule DigitalCollex.Elasticsearch.Test.Store do
       File.read!("test/fixtures/catalog.json")
     end
   end
+
   alias DigitalCollex.Indexer
   @behaviour Elasticsearch.Store
 
