@@ -1,5 +1,10 @@
 <%= render(DigitalCollexWeb.SharedView, "search_box.html", conn: @conn) %>
-
+<div>
+	<%= for {facet_label, facet_values} <- @results.facets do %>
+	  <%= facet_label %>
+	<% end %>
+</div>
 Showing <%= length(@results.hits) %> of <%= @results.total %> result(s)
 <%= render_many(@results.hits, DigitalCollexWeb.Search.ResultView, "list_result.html", as: :result) %>
+
 
