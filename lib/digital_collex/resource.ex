@@ -1,5 +1,5 @@
 defmodule DigitalCollex.Resource do
-  defstruct [:id, :title, :state, :repository_document]
+  defstruct [:id, :repository_document]
 
   defimpl Elasticsearch.Document do
     def id(resource), do: resource.id

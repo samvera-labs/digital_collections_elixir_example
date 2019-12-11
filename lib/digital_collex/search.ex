@@ -4,15 +4,34 @@ defmodule DigitalCollex.Search do
   end
 
   defmodule Results do
-    defstruct [:total, :hits]
+    defstruct [:total, :hits, :facets]
   end
 
-  def query(input) do
+  def query(input, facets \\ %{}) do
+    facets = build_elasticsearch_facets(facets)
+
     response =
       Elasticsearch.post(
         DigitalCollex.ElasticsearchCluster,
         "/resources/_doc/_search",
-        %{"query" => %{"query_string" => %{"query" => input}}}
+        %{
+          "query" => %{
+            "bool" => %{
+              "must" => %{
+                "query_string" => %{"query" => input}
+              },
+              "filter" => facets
+            }
+          },
+          "aggs" => %{
+            "state" => %{
+              "terms" => %{"field" => "state.keyword"}
+            },
+            "collections" => %{
+              "terms" => %{"field" => "member_of_collection_titles.keyword"}
+            }
+          }
+        }
       )
 
     case response do
@@ -21,15 +40,45 @@ defmodule DigitalCollex.Search do
     end
   end
 
-  # %{"_shards" => %{"failed" => 0, "skipped" => 0, "successful" => 5, "total" => 5}, "hits" => %{"hits" => [%{"_id" => "2815703b-1d95-42a0-8393-de9f3bcd6667", "_index" => "resources-1575662942446087", "_score" => 3.3330417, "_source" => %{"title" => ["\"Will the Dogs Make Trouble?\""]}, "_type" => "_doc"}], "max_score" => 3.3330417, "total" => 1}, "timed_out" => false, "took" => 5}
-  defp map_response(%{"hits" => %{"hits" => results, "total" => total}}) do
-    # Enum.map(results, &build_result/1)
-    hits = Enum.map(results, &build_result/1)
-    %Results{total: total, hits: hits}
+  # Example facets:
+  # %{"collections" => ["Bibliotheca Cicognara"]}
+  def build_elasticsearch_facets(facets) do
+    facets
+    |> Enum.filter(fn({term, value}) -> value != [""] end)
+    |> Enum.map(&build_facet/1)
   end
 
-  defp build_result(%{"_id" => id, "_source" => %{"title" => titles}}) do
+  # value is a list like ["Bibliotheca Cicognara"]
+  def build_facet({term, value}) do
+    value
+    |> Enum.map(&map_facet_term(term, &1))
+  end
+
+  defp map_facet_term("collections", value) do
+    map_facet_term("member_of_collection_titles", value)
+  end
+
+  defp map_facet_term(term, value) do
+      %{ "term" => %{ "#{term}.keyword" => value } }
+  end
+
+  defp map_response(%{"hits" => %{"hits" => results, "total" => total}, "aggregations" => aggs}) do
+    hits = Enum.map(results, &build_hits/1)
+    facets = Enum.reduce(aggs, %{}, &parse_facets/2)
+    %Results{total: total, hits: hits, facets: facets}
+  end
+
+  defp build_hits(%{"_id" => id, "_source" => %{"title" => titles}}) do
     %Hit{id: id, title: Enum.map(titles, &remove_escaped_quotes/1)}
+  end
+
+  defp parse_facets({key, %{"buckets" => buckets}}, acc) do
+    acc
+    |> Map.put(key, Enum.map(buckets, &parse_facet_hit/1))
+  end
+
+  defp parse_facet_hit(%{"key" => key, "doc_count" => count}) do
+    {key, count}
   end
 
   defp remove_escaped_quotes(str) do
