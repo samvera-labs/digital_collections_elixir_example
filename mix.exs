@@ -1,10 +1,12 @@
 defmodule DigitalCollex.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :digital_collex,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -18,7 +20,8 @@ defmodule DigitalCollex.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
-      ]
+      ],
+      releases: releases()
     ]
   end
 
@@ -74,5 +77,26 @@ defmodule DigitalCollex.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
+  end
+
+  defp releases do
+    [
+      digital_collex: [
+        include_executables_for: [:unix],
+        applications: [
+          digital_collex: :permanent,
+          observer: :permanent,
+          runtime_tools: :permanent
+        ],
+        steps: [&build_assets/1, :assemble, :tar]
+      ]
+    ]
+  end
+
+  def build_assets(release) do
+    System.cmd("yarn", ["install"], cd: "assets")
+    System.cmd("yarn", ["deploy"], cd: "assets")
+    Mix.Tasks.Phx.Digest.run([])
+    release
   end
 end

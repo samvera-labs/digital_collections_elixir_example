@@ -13,6 +13,7 @@ config :digital_collex, DigitalCollex.Repo,
 # you can enable the server option below.
 config :digital_collex, DigitalCollexWeb.Endpoint,
   http: [port: System.get_env("HTTP_PORT", "4002")],
+  secret_key_base: "XNqnFVe7TjaSSoRcoaPXp5J3kiwGSppxBzS0Og2G5ITDQty1myfnL5kRbTdfqatF",
   server: false
 
 # Print only warnings and errors during test

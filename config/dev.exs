@@ -57,6 +57,7 @@ config :digital_collex, DigitalCollexWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :digital_collex, DigitalCollexWeb.Endpoint,
+  secret_key_base: "XNqnFVe7TjaSSoRcoaPXp5J3kiwGSppxBzS0Og2G5ITDQty1myfnL5kRbTdfqatF",
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

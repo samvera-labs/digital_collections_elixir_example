@@ -25,24 +25,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Use POW for user accounts and authentication
-config :digital_collex, :pow,
-  user: DigitalCollex.Users.User,
-  repo: DigitalCollex.Repo,
-  routes_backend: DigitalCollexWeb.PowRoutes
-
-config :digital_collex, :pow_assent,
-  providers: [
-    github: [
-      client_id: System.get_env("GITHUB_CLIENT_ID"),
-      client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
-      strategy: Assent.Strategy.Github
-    ]
-  ]
-
 config :digital_collex, DigitalCollex.ElasticsearchCluster,
   # The URL where Elasticsearch is hosted on your system
-  url: System.get_env("ELASTIC_SEARCH_URL", "http://localhost:9201"),
+  url: "http://localhost:9201",
 
   # If your Elasticsearch cluster uses HTTP basic authentication,
   # specify the username and password here:
