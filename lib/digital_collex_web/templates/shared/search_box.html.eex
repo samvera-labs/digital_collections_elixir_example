@@ -1,6 +1,6 @@
 <div class="lux">
   <h4>Search</h4>
-  <%= form_tag(Routes.result_path(@conn, :index), method: "get")  do %>
+  <%= form_tag(Routes.result_path(@conn, DigitalCollexWeb.SearchResultsLive), method: "get")  do %>
     <search-box>
       <input-text id="search-box" name="q" label="Search" :hide-label="true" placeholder="Find all the things" size="large" value="<%= @conn.params["q"] %>"></input-text>
       <input-button type="button" variation="icon" size="medium" icon="search"></input-button>

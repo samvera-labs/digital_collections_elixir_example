@@ -18,7 +18,7 @@ defmodule DigitalCollexWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/results", Search.ResultController, :index
+    live "/results", SearchResultsLive, as: :result
   end
 
   # Other scopes may use custom stacks.

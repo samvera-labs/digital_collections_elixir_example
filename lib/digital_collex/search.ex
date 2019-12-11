@@ -7,7 +7,11 @@ defmodule DigitalCollex.Search do
     defstruct [:total, :hits, :facets]
   end
 
-  def query(input, facets \\ %{}) do
+  def query("", facets \\ %{}) do
+    query("*", facets)
+  end
+
+  def query(input, facets) do
     facets = build_elasticsearch_facets(facets)
 
     response =
@@ -44,7 +48,7 @@ defmodule DigitalCollex.Search do
   # %{"collections" => ["Bibliotheca Cicognara"]}
   def build_elasticsearch_facets(facets) do
     facets
-    |> Enum.filter(fn({term, value}) -> value != [""] end)
+    |> Enum.filter(fn({term, value}) -> value != [""] && value != [] end)
     |> Enum.map(&build_facet/1)
   end
 

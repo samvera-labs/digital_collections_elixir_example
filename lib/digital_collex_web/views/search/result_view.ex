@@ -6,4 +6,9 @@ defmodule DigitalCollexWeb.Search.ResultView do
     |> List.insert_at(0, %{label: "Filter by #{label}", value: ""})
     |> Jason.encode!()
   end
+
+  def live_facet_options(label, buckets) do
+    Enum.map(buckets, fn {name, count} -> {"#{name}: #{count}", name} end)
+    |> List.insert_at(0, {"Filter by #{label}", ""})
+  end
 end
