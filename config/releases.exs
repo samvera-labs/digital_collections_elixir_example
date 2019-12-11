@@ -43,4 +43,13 @@ config :digital_collex, DigitalCollex.ElasticsearchCluster,
       raise("""
       environment variable ELASTICSEARCH_ENDPOINT is missing.
       This value is required in order to proceed.
-      """)
+      """),
+  indexes: %{
+    resources: %{
+      settings: Path.join([:code.priv_dir(:digital_collex) |> to_string(), "elasticsearch/resources.json"]),
+      store: DigitalCollex.ElasticsearchStore,
+      sources: [DigitalCollex.Resource],
+      bulk_page_size: 5000,
+      bulk_wait_interval: 15_000
+    }
+  }
