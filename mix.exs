@@ -54,7 +54,9 @@ defmodule DigitalCollex.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.1.5"},
       {:excoveralls, "~> 0.12.1"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:phoenix_live_view, "~> 0.4.0"},
+      {:floki, ">= 0.0.0", only: :test}
     ]
   end
 

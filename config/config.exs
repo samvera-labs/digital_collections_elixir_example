@@ -15,7 +15,10 @@ config :digital_collex, DigitalCollexWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "XNqnFVe7TjaSSoRcoaPXp5J3kiwGSppxBzS0Og2G5ITDQty1myfnL5kRbTdfqatF",
   render_errors: [view: DigitalCollexWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: DigitalCollex.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: DigitalCollex.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "B49Nlwf7zherfcN3I1mG0oZrOwlX26Uq"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -1,6 +1,8 @@
 defmodule DigitalCollexWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :digital_collex
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", DigitalCollexWeb.UserSocket,
     websocket: true,
     longpoll: false

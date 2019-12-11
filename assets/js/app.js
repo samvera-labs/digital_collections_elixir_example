@@ -24,6 +24,13 @@ import Vue from "vue";
 import system from "lux-design-system";
 import "lux-design-system/dist/system/system.css";
 
+// Phoenix Live View
+import {Socket} from "phoenix"
+import LiveSocket from "phoenix_live_view"
+
+let liveSocket = new LiveSocket("/live", Socket)
+liveSocket.connect()
+
 Vue.use(system);
 
 document.addEventListener("DOMContentLoaded", () => {
