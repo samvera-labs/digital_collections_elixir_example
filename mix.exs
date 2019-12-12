@@ -45,10 +45,10 @@ defmodule DigitalCollex.MixProject do
   defp deps do
     [
       {:certifi, "~> 2.4"},
-      {:credo, "~> 1.1.5"},
+      {:credo, "~> 1.1.5", only: [:dev, :test]},
       {:ecto_sql, "~> 3.1"},
       {:elasticsearch, "~> 1.0.0"},
-      {:excoveralls, "~> 0.12.1"},
+      {:excoveralls, "~> 0.12.1", only: [:dev, :test]},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
