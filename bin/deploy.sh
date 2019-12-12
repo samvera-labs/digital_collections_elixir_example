@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 BRANCH=${BRANCH:-master}
 DEPLOY_ENV=${DEPLOY_ENV:-prod}
