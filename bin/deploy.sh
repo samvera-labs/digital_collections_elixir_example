@@ -2,7 +2,18 @@
 
 BRANCH=${BRANCH:-master}
 DEPLOY_ENV=${DEPLOY_ENV:-prod}
+DEPLOY_DIR="/opt/digital_collex"
+APP="digital_collex"
+DEPLOY_SERVER="lib-elixir-test1"
+DEPLOY_USER="deploy"
 
-rm -rf /tmp/digital_collex
-git clone --single-branch --branch $BRANCH https://github.com/samvera-labs/digital_collections_elixir_example.git /tmp/digital_collex
-(cd /tmp/digital_collex && mix deps.get && docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV -ti samvera/elixir-build bash -c "mix deps.get && mix release --overwrite")
+function deploy() {
+  rm -rf /tmp/digital_collex
+  git clone --single-branch --depth 1 --branch $BRANCH https://github.com/samvera-labs/digital_collections_elixir_example.git /tmp/digital_collex
+  cd /tmp/digital_collex
+  VERSION=`awk '/@version \"(.*)\"/{ print $2 }' ./mix.exs | cut -d '"' -f2`
+  docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV -ti samvera/elixir-build bash -c "mix deps.get && mix release --overwrite"
+  scp _build/${DEPLOY_ENV}/${APP}-${VERSION}.tar.gz ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_DIR}
+}
+
+deploy
