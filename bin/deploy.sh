@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 BRANCH=${BRANCH:-master}
 DEPLOY_ENV=${DEPLOY_ENV:-prod}
 DEPLOY_DIR="/opt/digital_collex"
