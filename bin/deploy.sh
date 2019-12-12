@@ -7,6 +7,10 @@ APP="digital_collex"
 DEPLOY_SERVER="lib-elixir-test1"
 DEPLOY_USER="deploy"
 
+if [[ $DEPLOY_ENV == "production" ]]; then
+	DEPLOY_ENV="prod"
+fi
+
 function deploy() {
   rm -rf /tmp/digital_collex
   git clone --single-branch --depth 1 --branch $BRANCH https://github.com/samvera-labs/digital_collections_elixir_example.git /tmp/digital_collex
