@@ -24,7 +24,7 @@ function deploy() {
   scp ${SSH_PARAMS} _build/${DEPLOY_ENV}/${APP}-${VERSION}.tar.gz ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_DIR}
   ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && tar -xzf ${APP}-${VERSION}.tar.gz"
   ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && ./bin/digital_collex eval 'DigitalCollex.ReleaseTasks.migrate()'"
-  ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} sudo service elixir-server restart"
+  ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "sudo service elixir-server restart"
 }
 
 deploy
