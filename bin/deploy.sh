@@ -20,7 +20,7 @@ function deploy() {
   git clone --single-branch --depth 1 --branch $BRANCH https://github.com/pulibrary/digital_collections_elixir_example.git /tmp/digital_collex
   cd /tmp/digital_collex
   VERSION=`awk '/@version \"(.*)\"/{ print $2 }' ./mix.exs | cut -d '"' -f2`
-  docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV -ti samvera/elixir-build bash -c "mix deps.get && mix release --overwrite"
+  docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV samvera/elixir-build bash -c "mix deps.get && mix release --overwrite"
   scp ${SSH_PARAMS} _build/${DEPLOY_ENV}/${APP}-${VERSION}.tar.gz ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_DIR}
   ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && tar -xzf ${APP}-${VERSION}.tar.gz"
   ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && ./bin/digital_collex eval 'DigitalCollex.ReleaseTasks.migrate()'"
