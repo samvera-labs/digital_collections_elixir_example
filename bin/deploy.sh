@@ -8,7 +8,7 @@ DEPLOY_DIR="/opt/digital_collex"
 APP="digital_collex"
 DEPLOY_SERVER="lib-elixir-test1"
 DEPLOY_USER="deploy"
-KEYFILE="$HOME/.ssh/id_deploy"
+KEYFILE="/home/deploy/.ssh/id_deploy"
 SSH_PARAMS="-i ${KEYFILE} -o StrictHostKeyChecking=no"
 
 if [[ $DEPLOY_ENV == "production" ]]; then
