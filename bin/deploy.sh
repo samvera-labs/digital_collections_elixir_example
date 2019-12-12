@@ -17,7 +17,7 @@ fi
 
 function deploy() {
   rm -rf /tmp/digital_collex
-  git clone --single-branch --depth 1 --branch $BRANCH https://github.com/samvera-labs/digital_collections_elixir_example.git /tmp/digital_collex
+  git clone --single-branch --depth 1 --branch $BRANCH https://github.com/pulibrary/digital_collections_elixir_example.git /tmp/digital_collex
   cd /tmp/digital_collex
   VERSION=`awk '/@version \"(.*)\"/{ print $2 }' ./mix.exs | cut -d '"' -f2`
   docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV -ti samvera/elixir-build bash -c "mix deps.get && mix release --overwrite"
