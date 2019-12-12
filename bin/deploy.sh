@@ -8,6 +8,8 @@ DEPLOY_DIR="/opt/digital_collex"
 APP="digital_collex"
 DEPLOY_SERVER="lib-elixir-test1"
 DEPLOY_USER="deploy"
+KEYFILE="$HOME/.ssh/id_deploy"
+SSH_PARAMS="-i ${KEYFILE} -o StrictHostKeyChecking=no"
 
 if [[ $DEPLOY_ENV == "production" ]]; then
 	DEPLOY_ENV="prod"
@@ -19,10 +21,10 @@ function deploy() {
   cd /tmp/digital_collex
   VERSION=`awk '/@version \"(.*)\"/{ print $2 }' ./mix.exs | cut -d '"' -f2`
   docker run -v $(pwd):/build -w /build -e MIX_ENV=$DEPLOY_ENV -ti samvera/elixir-build bash -c "mix deps.get && mix release --overwrite"
-  scp -o StrictHostKeyChecking=no _build/${DEPLOY_ENV}/${APP}-${VERSION}.tar.gz ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_DIR}
-  ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && tar -xzf ${APP}-${VERSION}.tar.gz"
-  ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && ./bin/digital_collex eval 'DigitalCollex.ReleaseTasks.migrate()'"
-  ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} sudo service elixir-server restart"
+  scp ${SSH_PARAMS} _build/${DEPLOY_ENV}/${APP}-${VERSION}.tar.gz ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_DIR}
+  ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && tar -xzf ${APP}-${VERSION}.tar.gz"
+  ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} && ./bin/digital_collex eval 'DigitalCollex.ReleaseTasks.migrate()'"
+  ssh ${SSH_PARAMS} ${DEPLOY_USER}@${DEPLOY_SERVER} -- "cd ${DEPLOY_DIR} sudo service elixir-server restart"
 }
 
 deploy
