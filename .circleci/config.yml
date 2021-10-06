@@ -24,6 +24,15 @@ jobs:
           http.cors.allow-headers: "X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization"
     steps:
       - checkout
+      - run:
+          name: Check for 'master' branch
+          command: |
+              git fetch --all --quiet --prune --prune-tags
+              if [[ -n "$(git branch --all --list master */master)" ]]; then
+                  echo "A branch named 'master' was found. Please remove it."
+                  echo "$(git branch --all --list master */master)"
+              fi
+              [[ -z "$(git branch --all --list master */master)" ]]
       - restore_cache:
           keys:
             - v1-hex-cache-{{ checksum "mix.lock" }}
@@ -75,4 +84,3 @@ workflows:
   ci:
     jobs:
       - test
-
